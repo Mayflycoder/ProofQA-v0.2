@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "proofqa-local"
+version = "0.2.0"
+description = "Local, authorized browser QA checks with evidence-backed reports"
+requires-python = ">=3.11"
+dependencies = [
+  "playwright>=1.56,<2",
+  "axe-playwright-python>=0.1.8,<0.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.8,<1"]
+
+[project.scripts]
+proofqa = "pqlqa.cli:main"
+pql-qa = "pqlqa.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["pqlqa*"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
