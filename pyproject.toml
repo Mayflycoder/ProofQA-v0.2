@@ -6,11 +6,17 @@ build-backend = "setuptools.build_meta"
 name = "proofqa-local"
 version = "0.2.0"
 description = "Local, authorized browser QA checks with evidence-backed reports"
+readme = "README.md"
+keywords = ["quality-assurance", "playwright", "website-testing", "accessibility"]
 requires-python = ">=3.11"
 dependencies = [
   "playwright>=1.56,<2",
   "axe-playwright-python>=0.1.8,<0.2",
 ]
+
+[project.urls]
+Homepage = "https://github.com/Mayflycoder/ProofQA-v0.2"
+Issues = "https://github.com/Mayflycoder/ProofQA-v0.2/issues"
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.8,<1"]

@@ -6,7 +6,7 @@ Thank you for helping make developer QA more transparent and accessible.
 
 - Use synthetic pages and localhost fixtures; do not scan a third-party domain as part of the automated tests.
 - Open an issue describing the problem and proposed acceptance evidence for larger changes.
-- Keep PASS, FAIL, WARN and BLOCKED distinguishable; never present untested functionality as verified.
+- Keep PASS, FAIL, WARN, BLOCKED and NOT_VERIFIED distinguishable; never present untested functionality as verified.
 - Do not add production credentials, screenshots containing real personal information, private customer artifacts, or telemetry by default.
 
 ## Developer setup
