@@ -8,3 +8,4 @@ qa-results/
 .env
 
 proofqa-results/
+.netlify/
