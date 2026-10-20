@@ -8,7 +8,7 @@ permissions:
 jobs:
   impact-engine:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,3 +26,33 @@ jobs:
           test -s apps/changeripple/styles.css
           test -s apps/changeripple/app.js
           test -s apps/changeripple/README.md
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install existing ProofQA v0.2 engine and real Chromium
+        run: |
+          python -m pip install -e .
+          python -m playwright install --with-deps chromium
+      - name: Smoke-check ChangeRipple with the existing ProofQA engine
+        run: |
+          python -m http.server 8765 --bind 127.0.0.1 --directory apps/changeripple >/tmp/changeripple-http.log 2>&1 &
+          for attempt in $(seq 1 25); do
+            if curl -fsS http://127.0.0.1:8765/ >/dev/null 2>&1; then break; fi
+            sleep 0.5
+          done
+          proofqa --url http://127.0.0.1:8765 --authorized --path / --output ./changeripple-qa-results
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path("changeripple-qa-results/report.json").read_text())
+          assert report["counts"]["FAIL"] == 0, report["counts"]
+          assert report["counts"]["BLOCKED"] == 0, report["counts"]
+          assert Path("changeripple-qa-results/report.html").exists()
+          PY
+      - name: Preserve synthetic browser QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: changeripple-proofqa-v02-evidence
+          path: changeripple-qa-results/
+          if-no-files-found: warn
