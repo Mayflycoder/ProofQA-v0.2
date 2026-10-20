@@ -107,7 +107,7 @@ export const CAPA_CHECKS = [
  ["verify","Verification or validation of implemented actions"],
  ["effectiveness","Effectiveness monitoring and recurrence check"],["docs","Procedure, risk and training updates"]
 ];
-const norm = x=>String(x||"").localeCompare(String(x||""));
+const norm = (a,b)=>String(a||"").localeCompare(String(b||""));
 export function graphGaps(nodes=NODES,edges=RELATIONS) {
  const ids = new Set(nodes.map(n=>n.id));
  const attached = new Set();
