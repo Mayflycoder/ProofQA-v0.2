@@ -51,3 +51,27 @@ jobs:
           name: proofqa-synthetic-evidence
           path: proofqa-ci-results/
           if-no-files-found: warn
+
+  release:
+    name: Publish v0.2.0 after passing CI
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create v0.2.0 tag and GitHub release once
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if gh release view v0.2.0 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo 'v0.2.0 already published; skipping.'
+            exit 0
+          fi
+          gh release create v0.2.0 \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title 'ProofQA v0.2.0 — Local Developer Preview' \
+            --notes-file docs/RELEASE_NOTES.md
