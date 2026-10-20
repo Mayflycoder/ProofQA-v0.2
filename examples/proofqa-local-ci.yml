@@ -1,0 +1,36 @@
+# Example GitHub Actions workflow for a repository that vendors ProofQA at its root.
+# Adapt the server command and tested paths to your own authorized application.
+name: ProofQA example — local app preview
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  proofqa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ProofQA
+        run: |
+          python -m pip install -e .
+          python -m playwright install --with-deps chromium
+      - name: Start authorized local preview
+        run: |
+          python -m http.server 8080 --bind 127.0.0.1 --directory examples/sample-site >/tmp/proofqa-site.log 2>&1 &
+          for attempt in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:8080/ >/dev/null 2>&1; then break; fi
+            sleep 0.5
+          done
+      - name: Run local QA
+        run: proofqa --url http://127.0.0.1:8080 --authorized --output ./proofqa-results
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: proofqa-results
+          path: ./proofqa-results/
+          if-no-files-found: warn
