@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1827">
+  <meta name="description" content="ChangeRipple — trace cross-functional impacts of synthetic procedure, supplier and CAPA changes.">
+  <title>ChangeRipple — Cross-functional Impact Intelligence</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="brand">
+        <div class="brand-mark"><span class="ripple-circle"></span></div>
+        <div><strong>ChangeRipple</strong><small>QUALITY INTELLIGENCE</small></div>
+      </div>
+      <div class="workspace-label">WORKSPACE <span class="workspace-dot"></span></div>
+      <div class="workspace-name"><span class="workspace-avatar">S</span><span>Sandbox workspace<small>Demonstration only</small></span></div>
+      <nav id="nav">
+        <div class="nav-group-label">WORKSPACE</div>
+        <button data-route="overview" class="nav-item" type="button"><span class="nav-icon">◫</span> Overview</button>
+        <button data-route="assessments" class="nav-item" type="button"><span class="nav-icon">≋</span> Assessments</button>
+        <button data-route="library" class="nav-item" type="button"><span class="nav-icon">⌘</span> Dependency library</button>
+        <button data-route="gaps" class="nav-item" type="button"><span class="nav-icon">◌</span> Coverage & gaps</button>
+        <div class="nav-group-label second-group">INFORMATION</div>
+        <button data-route="about" class="nav-item" type="button"><span class="nav-icon">ⓘ</span> Methodology</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sandbox-icon">⚗</div>
+        <strong>Safe to explore</strong>
+        <p>All records are fictional. Nothing is transmitted to a server.</p>
+        <button id="resetDemo" class="side-reset" type="button">↺ Reset demo data</button>
+      </div>
+    </aside>
+    <div class="content">
+      <header class="topbar">
+        <div class="crumb"><span class="mobile-mark">◉</span><span class="top-app">ChangeRipple</span><span class="slash">/</span><span id="crumb">Overview</span></div>
+        <div class="top-actions"><span class="demo-pill"><span></span> DEMO · SYNTHETIC DATA</span><button data-route="new" class="btn btn-primary btn-small" type="button">＋ New assessment</button></div>
+      </header>
+      <div class="confidential-banner"><span>◇</span><span><b>Demonstration environment.</b> Do not enter company-confidential information or upload employer records. This browser-only prototype is not regulatory approval or a validated QMS.</span></div>
+      <main id="main" tabindex="-1" aria-live="polite"></main>
+      <footer class="footer"><span>ChangeRipple v0.1 · Deterministic rules · Local-only demo</span><span>Unmapped does not mean unaffected</span></footer>
+    </div>
+  </div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
