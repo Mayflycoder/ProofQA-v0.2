@@ -49,6 +49,8 @@ jobs:
           assert report["counts"]["BLOCKED"] == 0, report["counts"]
           assert Path("changeripple-qa-results/report.html").exists()
           PY
+      - name: Real Chromium interactive workflow smoke test
+        run: python apps/changeripple/browser_smoke.py http://127.0.0.1:8765
       - name: Preserve synthetic browser QA evidence
         if: always()
         uses: actions/upload-artifact@v4
